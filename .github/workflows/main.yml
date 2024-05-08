@@ -23,7 +23,7 @@ jobs:
           push: true
           tags: |
             souza1998/kube-news:latest
-            souza1998/kube-news:${{github.run_number}}
+            souza1998/kube-news:v${{github.run_number}}
   CD:
     needs: [CI]
     runs-on: ubuntu-latest
