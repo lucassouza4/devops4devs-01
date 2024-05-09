@@ -106,3 +106,7 @@ dist
 *.Identifier
 
 **/image_public
+
+# AWS
+aws
+awscliv2.zip

@@ -1,5 +1,12 @@
 # DevOps 4 Devs
 
+## SHELL SCRIPT PARA INICIALIZAÇÃO:
+
+```bash
+chmod -v +x start.sh
+./start.sh nome-do-cluster quantidade-de-servers quantidade-de-agents
+```
+
 ## Aula 01:
 O projeto conversão de temperatura se encontra no link abaixo:
 
