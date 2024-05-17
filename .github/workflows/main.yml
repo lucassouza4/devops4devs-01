@@ -41,7 +41,7 @@ jobs:
       - name: Atualização do manifesto
         shell: bash
         run: | 
-          sed -i 's/\{\{AWS_ACCESS_KEY\}\}/${{secrets.AWS_ACCESS_KEY}}/g' ./k8s/deploy.yaml
+          sed -i 's/{{AWS_ACCESS_KEY}}/${{secrets.AWS_ACCESS_KEY}}/g' ./k8s/deploy.yaml
           sed -i "s/{{AWS_ACCESS_SECRET}}/${{secrets.AWS_ACCESS_SECRET}}/g" ./k8s/deploy.yaml
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
