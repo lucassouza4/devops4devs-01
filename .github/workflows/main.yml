@@ -28,11 +28,24 @@ jobs:
     needs: [CI]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.5
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
           aws-secret-access-key: ${{secrets.AWS_ACCESS_SECRET}}
-      - name: Executar o Deploy
-        run: echo "kubectl apply"
+      - name: Configuração do Kubeconfig
+        run: aws eks update-kubeconfig --name kubenews-eks --region us-east-1
+      - name: Atualização do manifesto
+      - shell: bash
+      - run: |
+          sed -i "s/{{AWS_ACCESS_KEY}}/${{secrets.AWS_ACCESS_KEY}}/g" ./k8s/deploy.yaml
+          sed -i "s/{{AWS_ACCESS_SECRET}}/${{secrets.AWS_ACCESS_SECRET}}/g" ./k8s/deploy.yaml
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v4.9
+        with:
+          manifests: ./k8s/deploy.yaml
+          images: souza1998/kube-news:v${{github.run_number}}
+          
