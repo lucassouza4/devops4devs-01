@@ -40,7 +40,10 @@ jobs:
         run: aws eks update-kubeconfig --name kubenews-eks --region us-east-1
       - name: Atualização do manifesto
         run: | 
-          sed -i "s/{{AWS_ACCESS_KEY}}/teste/" ./k8s/deploy.yaml
+          echo {{AWS_ACCESS_KEY}}
+          echo ${{secrets.AWS_ACCESS_SECRET}}
+          echo s/{{AWS_ACCESS_KEY}}/${{secrets.AWS_ACCESS_SECRET}}/g
+          echo sed -i "s/{{AWS_ACCESS_KEY}}/${{secrets.AWS_ACCESS_SECRET}}/g" ./k8s/deploy.yaml
           sed -i "s/{{AWS_ACCESS_SECRET}}/${{secrets.AWS_ACCESS_SECRET}}/g" ./k8s/deploy.yaml
 
 
